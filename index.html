@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafePlant — Monitoreo inteligente para plantas industriales</title>
+<meta name="description" content="SafePlant monitorea en tiempo real CO₂, ruido y presencia de personal en zonas industriales críticas, y activa respuestas automáticas ante condiciones de riesgo.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<header class="navbar" id="navbar">
+  <div class="navbar__inner container">
+    <a href="#top" class="navbar__logo">
+      <span class="navbar__logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+          <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <circle cx="12" cy="12" r="2.6" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="navbar__logo-text">Safe<span class="navbar__logo-accent">Plant</span></span>
+    </a>
+
+    <nav class="navbar__links" aria-label="Navegación principal">
+      <a href="#top">Inicio</a>
+      <a href="#monitoreo">Monitoreo</a>
+      <a href="#beneficios">Beneficios</a>
+      <a href="#arquitectura">Arquitectura</a>
+      <div class="navbar__apps navbar__apps--mobile-only">
+        <a href="https://app.safeplant.io/mobile/login" target="_blank" rel="noopener noreferrer"
+           class="btn btn--ghost btn--nav app-access" data-app="mobile" data-app-name="aplicación móvil" data-status="available">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          App móvil
+        </a>
+        <a href="https://app.safeplant.io/web/login" target="_blank" rel="noopener noreferrer"
+           class="btn btn--primary btn--nav app-access" data-app="web" data-app-name="aplicación web de gobernanza" data-status="available">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          App web
+        </a>
+      </div>
+    </nav>
+
+    <div class="navbar__apps navbar__apps--desktop-only">
+      <a href="https://app.safeplant.io/mobile/login" target="_blank" rel="noopener noreferrer"
+         class="btn btn--ghost btn--nav app-access" data-app="mobile" data-app-name="aplicación móvil" data-status="available">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        App móvil
+      </a>
+      <a href="https://app.safeplant.io/web/login" target="_blank" rel="noopener noreferrer"
+         class="btn btn--primary btn--nav app-access" data-app="web" data-app-name="aplicación web de gobernanza" data-status="available">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        App web
+      </a>
+    </div>
+
+    <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero__grid-bg" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <h1 class="hero__title">Monitoreo inteligente para una planta más segura</h1>
+        <p class="hero__subtitle">SafePlant detecta riesgos ambientales en tiempo real, protege a tus operarios y responde automáticamente ante condiciones peligrosas en zonas industriales críticas.</p>
+        <div class="hero__actions">
+          <a href="#monitoreo" class="btn btn--primary">Explorar sistema</a>
+          <a href="#flujo" class="btn btn--ghost">Ver cómo funciona</a>
+        </div>
+      </div>
+
+      <div class="hero__panel">
+        <div class="dashboard-card">
+          <div class="dashboard-card__header">
+            <span class="dashboard-card__title">Panel de planta — Sector B</span>
+            <span class="status-pill status-pill--safe">
+              <span class="status-pill__dot" aria-hidden="true"></span>
+              OPERATIVO
+            </span>
+          </div>
+
+          <div class="dashboard-card__rows">
+            <div class="metric-row">
+              <div class="metric-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M4 15c0-2.2 1.8-4 4-4h1a3 3 0 100-6 3 3 0 00-2.9 2.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4 19h13a3 3 0 100-6h-.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <div class="metric-row__label">CO₂</div>
+              <div class="metric-row__value">820 <span>ppm</span></div>
+              <div class="metric-row__state metric-row__state--safe">Normal</div>
+            </div>
+
+            <div class="metric-row">
+              <div class="metric-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M3 10v4h3l4 4V6L6 10H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M15.5 9a4 4 0 010 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M18 6.5a8 8 0 010 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <div class="metric-row__label">Ruido</div>
+              <div class="metric-row__value">68 <span>dB</span></div>
+              <div class="metric-row__state metric-row__state--safe">Normal</div>
+            </div>
+
+            <div class="metric-row">
+              <div class="metric-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="9" cy="7" r="2.6" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 18c.6-3 2.7-4.6 5.5-4.6s4.9 1.6 5.5 4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="17" cy="8" r="2" stroke="currentColor" stroke-width="1.4"/><path d="M15.2 18c.4-2.3 1.9-3.5 3.8-3.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </div>
+              <div class="metric-row__label">Personal detectado</div>
+              <div class="metric-row__value">03</div>
+              <div class="metric-row__state metric-row__state--safe">Registrado</div>
+            </div>
+          </div>
+
+          <div class="dashboard-card__footer">
+            <span class="sensor-node" aria-hidden="true"></span>
+            <span class="sensor-node" aria-hidden="true"></span>
+            <span class="sensor-node" aria-hidden="true"></span>
+            <span class="sensor-node sensor-node--muted" aria-hidden="true"></span>
+            <span class="dashboard-card__footer-text">4 sensores conectados</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROPÓSITO ============ -->
+  <section class="section section--purpose" id="proposito">
+    <div class="container">
+      <div class="purpose">
+        <div class="purpose__text">
+          <h2 class="section__title">Qué es SafePlant</h2>
+          <p class="section__lead">SafePlant es un sistema de monitoreo y prevención de riesgos diseñado para el control de la seguridad y la contaminación ambiental en plantas industriales. Supervisa continuamente las condiciones del entorno y actúa antes de que un riesgo afecte a los operarios.</p>
+        </div>
+        <div class="purpose__pillars">
+          <div class="purpose__pillar">
+            <span class="purpose__pillar-index">01</span>
+            <h3>Control ambiental</h3>
+            <p>Mide de forma constante la calidad del aire y el nivel de ruido en las zonas de trabajo.</p>
+          </div>
+          <div class="purpose__pillar">
+            <span class="purpose__pillar-index">02</span>
+            <h3>Seguridad del personal</h3>
+            <p>Identifica la presencia de operarios en zonas críticas para evaluar su nivel de exposición.</p>
+          </div>
+          <div class="purpose__pillar">
+            <span class="purpose__pillar-index">03</span>
+            <h3>Respuesta automática</h3>
+            <p>Activa extractores, sirenas preventivas y mamparas acústicas sin intervención manual.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MONITOREO ============ -->
+  <section class="section" id="monitoreo">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Monitoreo en tiempo real</h2>
+        <p class="section__lead">El sistema supervisa de forma continua las condiciones ambientales y la presencia de personal en las zonas críticas de la planta, sin intervención manual.</p>
+      </div>
+
+      <div class="metric-cards">
+        <article class="metric-card">
+          <div class="metric-card__top">
+            <div class="metric-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none"><path d="M4 15c0-2.2 1.8-4 4-4h1a3 3 0 100-6 3 3 0 00-2.9 2.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4 19h13a3 3 0 100-6h-.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <span class="badge badge--safe">Nivel seguro</span>
+          </div>
+          <p class="metric-card__label">CO₂</p>
+          <p class="metric-card__value">820 <span>ppm</span></p>
+          <p class="metric-card__desc">Monitoreo continuo de la concentración de dióxido de carbono.</p>
+          <div class="metric-card__bar"><span style="width:34%"></span></div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-card__top">
+            <div class="metric-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none"><path d="M3 10v4h3l4 4V6L6 10H3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M15.5 9a4 4 0 010 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M18 6.5a8 8 0 010 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <span class="badge badge--safe">Nivel permitido</span>
+          </div>
+          <p class="metric-card__label">Contaminación sonora</p>
+          <p class="metric-card__value">68 <span>dB</span></p>
+          <p class="metric-card__desc">Detección de niveles de ruido que pueden representar un riesgo para el personal.</p>
+          <div class="metric-card__bar"><span style="width:52%"></span></div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-card__top">
+            <div class="metric-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none"><circle cx="9" cy="7" r="2.8" stroke="currentColor" stroke-width="1.6"/><path d="M3 18.5c.6-3.4 2.9-5.2 6-5.2s5.4 1.8 6 5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="18" cy="8" r="2.2" stroke="currentColor" stroke-width="1.5"/><path d="M16 18.5c.4-2.6 2-4 4.2-3.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="badge badge--info">Personal detectado</span>
+          </div>
+          <p class="metric-card__label">Presencia</p>
+          <p class="metric-card__value">03 <span>personas</span></p>
+          <p class="metric-card__desc">Identificación de presencia en zonas críticas para evaluar exposición al riesgo.</p>
+          <div class="metric-card__bar metric-card__bar--info"><span style="width:60%"></span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FLUJO: DETECTAR -> ANALIZAR -> ACTUAR ============ -->
+  <section class="section section--flow" id="flujo">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Cómo responde el sistema</h2>
+        <p class="section__lead">Tres etapas continuas que transforman una lectura de sensor en una acción de protección real.</p>
+      </div>
+
+      <ol class="flow">
+        <li class="flow__step">
+          <span class="flow__index">01</span>
+          <h3 class="flow__title">Detectar</h3>
+          <p class="flow__desc">Los sensores recopilan datos ambientales y detectan la presencia de personal.</p>
+        </li>
+        <li class="flow__connector" aria-hidden="true"><span></span></li>
+        <li class="flow__step">
+          <span class="flow__index">02</span>
+          <h3 class="flow__title">Analizar</h3>
+          <p class="flow__desc">El sistema analiza las mediciones en tiempo real y determina si existe una condición peligrosa.</p>
+        </li>
+        <li class="flow__connector" aria-hidden="true"><span></span></li>
+        <li class="flow__step">
+          <span class="flow__index">03</span>
+          <h3 class="flow__title">Actuar</h3>
+          <p class="flow__desc">Cuando se supera un umbral de seguridad, el sistema activa automáticamente los mecanismos correspondientes.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ AUTOMATIZACIÓN ============ -->
+  <section class="section" id="automatizacion">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">De la detección a la acción automática</h2>
+        <p class="section__lead">Cada mecanismo se activa según el tipo y la severidad del riesgo detectado, sin esperar intervención humana.</p>
+      </div>
+
+      <div class="mechanism-grid">
+        <article class="mechanism-card">
+          <div class="mechanism-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><circle cx="12" cy="12" r="1.6" fill="currentColor"/><path d="M12 12c0-3 1.2-5 4-5.4-1 2.4.2 4.4 2.4 5.4-2.2 1-3.4 3-2.4 5.4-2.8-.4-4-2.4-4-5.4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 12c0 3-1.2 5-4 5.4 1-2.4-.2-4.4-2.4-5.4 2.2-1 3.4-3 2.4-5.4 2.8.4 4 2.4 4 5.4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="mechanism-card__status mechanism-card__status--active">ACTIVO</span>
+          <h3 class="mechanism-card__title">Ventilador de extracción</h3>
+          <p class="mechanism-card__desc">Activación automática ante niveles elevados de CO₂.</p>
+        </article>
+
+        <article class="mechanism-card">
+          <div class="mechanism-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M4 10.5V14a1 1 0 001 1h2l4.5 3.5v-11L7 10.5H5a1 1 0 00-1 1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 9.5a4 4 0 010 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M18.3 7.2a7.5 7.5 0 010 10.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="mechanism-card__status mechanism-card__status--standby">STANDBY</span>
+          <h3 class="mechanism-card__title">Bocina preventiva</h3>
+          <p class="mechanism-card__desc">Alerta inmediata cuando un operario se encuentra expuesto a una condición peligrosa.</p>
+        </article>
+
+        <article class="mechanism-card">
+          <div class="mechanism-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><rect x="4" y="5" width="6" height="14" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="14" y="5" width="6" height="14" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M10 9h4M10 15h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="mechanism-card__status mechanism-card__status--available">DISPONIBLE</span>
+          <h3 class="mechanism-card__title">Mamparas acústicas</h3>
+          <p class="mechanism-card__desc">Aislamiento acústico complementario ante niveles excesivos de ruido.</p>
+        </article>
+
+        <article class="mechanism-card">
+          <div class="mechanism-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M12 3l8 4v5c0 5-3.4 7.8-8 9-4.6-1.2-8-4-8-9V7l8-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 8v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="16" r="0.9" fill="currentColor"/></svg>
+          </div>
+          <span class="mechanism-card__status mechanism-card__status--monitor">MONITOREANDO</span>
+          <h3 class="mechanism-card__title">Alerta al sistema</h3>
+          <p class="mechanism-card__desc">Registro y comunicación del evento detectado.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BENEFICIOS ============ -->
+  <section class="section" id="beneficios">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">El valor de SafePlant para tu planta</h2>
+        <p class="section__lead">Beneficios directos para la seguridad operativa, el control ambiental y la gestión remota de la planta.</p>
+      </div>
+
+      <div class="benefits">
+        <article class="benefit">
+          <div class="benefit__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M12 3l8 4v5c0 5-3.4 7.8-8 9-4.6-1.2-8-4-8-9V7l8-4z" stroke="currentColor" stroke-width="1.5"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="benefit__title">Prevención de riesgos</h3>
+          <p class="benefit__desc">Reduce la exposición de los operarios a condiciones ambientales y de seguridad peligrosas antes de que escalen.</p>
+        </article>
+
+        <article class="benefit">
+          <div class="benefit__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><rect x="7" y="2.5" width="10" height="19" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="benefit__title">Monitoreo continuo desde el móvil</h3>
+          <p class="benefit__desc">Consulta las condiciones ambientales de la planta en tiempo real desde la aplicación móvil, en cualquier momento.</p>
+        </article>
+
+        <article class="benefit">
+          <div class="benefit__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M14 4.5L18 6l-1.5 4M10 19.5L6 18l1.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="benefit__title">Automatización y control remoto</h3>
+          <p class="benefit__desc">Coordina ventilación, alarmas y aislamiento automáticamente, con control operativo remoto desde la app móvil.</p>
+        </article>
+
+        <article class="benefit">
+          <div class="benefit__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><circle cx="12" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M5 20c.8-4.4 3.6-6.6 7-6.6s6.2 2.2 7 6.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="benefit__title">Protección del personal</h3>
+          <p class="benefit__desc">Identifica la presencia de operarios en zonas críticas para actuar antes de que el riesgo los alcance.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ARQUITECTURA TÉCNICA ============ -->
+  <section class="section section--architecture" id="arquitectura">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Arquitectura técnica</h2>
+        <p class="section__lead">Cuatro capas que conectan los sensores de planta con los equipos de supervisión y gobernanza, desde el dato crudo hasta la decisión.</p>
+      </div>
+
+      <div class="arch">
+        <div class="arch__line" aria-hidden="true"></div>
+
+        <div class="arch__layer">
+          <div class="arch__marker" aria-hidden="true">01</div>
+          <div class="arch__card">
+            <h3 class="arch__title">Dispositivos embebidos</h3>
+            <p class="arch__desc">Microcontroladores ESP32 conectados a sensores de CO₂, ruido y presencia, junto a los actuadores físicos que ejecutan la respuesta en campo.</p>
+            <div class="arch__chips">
+              <span class="chip">ESP32</span>
+              <span class="chip">Sensor CO₂</span>
+              <span class="chip">Sensor de ruido</span>
+              <span class="chip">Sensor de presencia</span>
+              <span class="chip">Actuadores físicos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch__layer">
+          <div class="arch__marker" aria-hidden="true">02</div>
+          <div class="arch__card">
+            <h3 class="arch__title">API Gateway</h3>
+            <p class="arch__desc">Un API Gateway centraliza las lecturas de los dispositivos embebidos, procesa las reglas de riesgo y conserva los datos en una capa de persistencia de contingencia si se pierde la conexión con la nube.</p>
+            <div class="arch__chips">
+              <span class="chip">Persistencia de contingencia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch__layer">
+          <div class="arch__marker" aria-hidden="true">03</div>
+          <div class="arch__card">
+            <h3 class="arch__title">Plataforma en la nube</h3>
+            <p class="arch__desc">Una API REST recibe y expone la información de planta, respaldada por una base de datos relacional que almacena mediciones, eventos y el historial de respuestas automáticas.</p>
+            <div class="arch__chips">
+              <span class="chip">API REST</span>
+              <span class="chip">Base de datos relacional</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch__layer">
+          <div class="arch__marker" aria-hidden="true">04</div>
+          <div class="arch__card arch__card--split">
+            <div class="arch__split-item">
+              <h3 class="arch__title">App móvil de operación</h3>
+              <p class="arch__desc">Monitoreo, control operativo y configuración técnica del sistema, pensada para el supervisor de seguridad en campo.</p>
+            </div>
+            <div class="arch__split-divider" aria-hidden="true"></div>
+            <div class="arch__split-item">
+              <h3 class="arch__title">App web de gobernanza</h3>
+              <p class="arch__desc">Métricas y el historial de eventos, orientada al encargado de planta.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ CTA FINAL ============ -->
+  <section class="cta">
+    <div class="container cta__inner">
+      <h2 class="cta__title">Una planta más inteligente empieza con datos en tiempo real.</h2>
+      <p class="cta__text">Monitorea, detecta y actúa antes de que una condición ambiental se convierta en un riesgo.</p>
+      <div class="cta__actions">
+        <a href="https://app.safeplant.io/web/login" target="_blank" rel="noopener noreferrer" class="btn btn--accent app-access" data-app="web" data-app-name="aplicación web de gobernanza" data-status="available">Conocer el sistema</a>
+     
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="navbar__logo-text">Safe<span class="navbar__logo-accent">Plant</span></span>
+      <p class="footer__desc">Sistema inteligente de monitoreo y prevención para entornos industriales, desarrollado por Macallys.</p>
+    </div>
+    <nav class="footer__links" aria-label="Enlaces del pie de página">
+      <a href="#top">Inicio</a>
+      <a href="#monitoreo">Monitoreo</a>
+      <a href="#arquitectura">Arquitectura</a>
+    </nav>
+    <div class="footer__apps">
+      <a href="https://app.safeplant.io/mobile/login" target="_blank" rel="noopener noreferrer" class="app-access" data-app="mobile" data-app-name="aplicación móvil" data-status="available">App móvil</a>
+      <a href="https://app.safeplant.io/web/login" target="_blank" rel="noopener noreferrer" class="app-access" data-app="web" data-app-name="aplicación web de gobernanza" data-status="available">App web</a>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <p>&copy; 2026 SafePlant · Macallys. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  // ---------- Sticky navbar shrink on scroll ----------
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('navbar--scrolled', window.scrollY > 12);
+  });
+
+  // ---------- Mobile menu toggle ----------
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.querySelector('.navbar__links');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('navbar__links--open');
+    navToggle.classList.toggle('navbar__toggle--open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('navbar__links--open');
+      navToggle.classList.remove('navbar__toggle--open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ---------- Accesos a app móvil / app web (HU06 y HU09) ----------
+  // data-status="available" | "maintenance" — si se cambia a "maintenance",
+  // el acceso se bloquea y se informa la indisponibilidad sin ocultar el contenido informativo.
+  const notice = document.getElementById('maintenanceNotice');
+  const noticeText = document.getElementById('maintenanceNoticeText');
+  const noticeClose = document.getElementById('maintenanceNoticeClose');
+  let noticeTimer = null;
+
+  function showMaintenanceNotice(appName) {
+    noticeText.textContent = `El acceso a la ${appName} se encuentra en mantenimiento temporal. El contenido informativo del sitio continúa disponible.`;
+    notice.hidden = false;
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => { notice.hidden = true; }, 6000);
+  }
+  noticeClose.addEventListener('click', () => { notice.hidden = true; clearTimeout(noticeTimer); });
+
+  document.querySelectorAll('.app-access').forEach(link => {
+    link.addEventListener('click', (event) => {
+      if (link.dataset.status === 'maintenance') {
+        event.preventDefault();
+        showMaintenanceNotice(link.dataset.appName || 'aplicación');
+      }
+    });
+  });
+
+  // ---------- Equipo (HU03) ----------
+  // Si teamMembers está vacío, se informa que la sección está en actualización
+  // en lugar de mostrar una grilla vacía.
+  const teamMembers = [
+    { name: 'Camila Rojas', role: 'Líder de proyecto' },
+    { name: 'Diego Salazar', role: 'Desarrollo de hardware e IoT' },
+    { name: 'Valeria Núñez', role: 'Desarrollo backend y nube' },
+    { name: 'Sebastián Paredes', role: 'Desarrollo de aplicaciones móvil y web' }
+  ];
+
+  function initials(fullName) {
+    return fullName.split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+  }
+
+  const teamGrid = document.getElementById('teamGrid');
+  const teamEmpty = document.getElementById('teamEmpty');
+
+  if (teamMembers.length === 0) {
+    teamGrid.hidden = true;
+    teamEmpty.hidden = false;
+  } else {
+    teamGrid.innerHTML = teamMembers.map(member => `
+      <article class="team-card">
+        <div class="team-card__avatar" aria-hidden="true">${initials(member.name)}</div>
+        <h3 class="team-card__name">${member.name}</h3>
+        <p class="team-card__role">${member.role}</p>
+      </article>
+    `).join('');
+  }
+
+  // ---------- Formulario de contacto (HU04) ----------
+  const form = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+  const fields = {
+    name: { input: document.getElementById('name'), error: document.getElementById('nameError'), label: 'nombre' },
+    email: { input: document.getElementById('email'), error: document.getElementById('emailError'), label: 'correo electrónico' },
+    message: { input: document.getElementById('message'), error: document.getElementById('messageError'), label: 'mensaje' }
+  };
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function setFieldError(field, message) {
+    field.input.classList.toggle('is-invalid', Boolean(message));
+    field.error.textContent = message || '';
+  }
+
+  function clearStatus() {
+    formStatus.textContent = '';
+    formStatus.classList.remove('form-status--success', 'form-status--error');
+  }
+
+  Object.values(fields).forEach(field => {
+    field.input.addEventListener('input', () => setFieldError(field, ''));
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    clearStatus();
+
+    const values = {
+      name: fields.name.input.value.trim(),
+      email: fields.email.input.value.trim(),
+      message: fields.message.input.value.trim()
+    };
+
+    const missing = [];
+    if (!values.name) missing.push(fields.name);
+    if (!values.email) missing.push(fields.email);
+    if (!values.message) missing.push(fields.message);
+
+    missing.forEach(field => setFieldError(field, 'Este campo es obligatorio.'));
+
+    if (missing.length > 0) {
+      formStatus.textContent = `Completa los siguientes campos obligatorios: ${missing.map(f => f.label).join(', ')}.`;
+      formStatus.classList.add('form-status--error');
+      missing[0].input.focus();
+      return;
+    }
+
+    if (!emailPattern.test(values.email)) {
+      setFieldError(fields.email, 'El correo electrónico no tiene un formato válido.');
+      formStatus.textContent = 'Revisa el formato del correo electrónico ingresado.';
+      formStatus.classList.add('form-status--error');
+      fields.email.input.focus();
+      return;
+    }
+
+    // Simulación de registro exitoso de la solicitud (sitio estático, sin backend).
+    formStatus.textContent = 'Tu mensaje fue recibido correctamente. El equipo de SafePlant te contactará pronto.';
+    formStatus.classList.add('form-status--success');
+    form.reset();
+  });
+</script>
+</body>
+</html>
